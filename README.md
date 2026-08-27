@@ -23,6 +23,7 @@ prefix before forwarding each request.
 | `/api/assistant/` | AI learning assistant | `8002` |
 | `/api/quiz/` | Personalized quiz | `8003` |
 | `/api/notes/` | Handwritten notes | `8004` |
+| `/api/battle/` | Quiz-Battle-Service (1v1 battle) | `8005` |
 
 Examples:
 
@@ -30,6 +31,8 @@ Examples:
 - `/api/assistant/conversations/...` forwards to `/conversations/...`.
 - `/api/quiz/api/v1/quiz/...` forwards to `/api/v1/quiz/...`.
 - `/api/notes/api/health` forwards to the notes service's `/api/health`.
+- `/api/battle/api/v1/battle/...` forwards to Quiz-Battle-Service's `/api/v1/battle/...`
+  (REST and the `WS /api/v1/battle/match/{id}/ws` realtime endpoint alike).
 - `/health` is the API gateway's own health endpoint.
 
 Infrastructure ports copied from the PDF ingestion Compose setup remain
