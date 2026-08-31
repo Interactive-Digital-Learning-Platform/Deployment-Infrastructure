@@ -23,6 +23,7 @@ prefix before forwarding each request.
 | `/api/assistant/` | AI learning assistant | `8002` |
 | `/api/quiz/` | Personalized quiz | `8003` |
 | `/api/notes/` | Handwritten notes | `8004` |
+| `/api/mcp/` | Learning Assistant MCP server | `8006` |
 
 Examples:
 
@@ -30,6 +31,16 @@ Examples:
 - `/api/assistant/conversations/...` forwards to `/conversations/...`.
 - `/api/quiz/api/v1/quiz/...` forwards to `/api/v1/quiz/...`.
 - `/api/notes/api/health` forwards to the notes service's `/api/health`.
+- `/api/mcp/mcp` forwards to the MCP server's Streamable HTTP endpoint `/mcp`
+  (a trailing slash, `/api/mcp/mcp/`, is 308-redirected to the no-slash form);
+  `/api/mcp/health` forwards to `/health`. Callers send
+  `Authorization: Bearer <MCP_AUTH_TOKEN>`. The `/api/mcp/` location keeps
+  responses unbuffered and allows 1h idle for long-lived MCP sessions.
+- `/learning-documents/...` proxies straight to MinIO (`9000`) with the path
+  preserved, so the MCP server can hand the mobile app presigned PDF download
+  URLs on this origin in local dev. The bucket is private; only a valid SigV4
+  signature works. In production the MCP server signs against Cloudflare R2's
+  public endpoint and the gateway is not involved.
 - `/health` is the API gateway's own health endpoint.
 
 Infrastructure ports copied from the PDF ingestion Compose setup remain
