@@ -23,6 +23,7 @@ prefix before forwarding each request.
 | `/api/assistant/` | AI learning assistant | `8002` |
 | `/api/quiz/` | Personalized quiz | `8003` |
 | `/api/notes/` | Handwritten notes | `8004` |
+| `/api/battle/` | Quiz-Battle-Service (1v1 battle) | `8005` |
 | `/api/mcp/` | Learning Assistant MCP server | `8006` |
 
 Examples:
@@ -31,6 +32,8 @@ Examples:
 - `/api/assistant/conversations/...` forwards to `/conversations/...`.
 - `/api/quiz/api/v1/quiz/...` forwards to `/api/v1/quiz/...`.
 - `/api/notes/api/health` forwards to the notes service's `/api/health`.
+- `/api/battle/api/v1/battle/...` forwards to Quiz-Battle-Service's `/api/v1/battle/...`
+  (REST and the `WS /api/v1/battle/match/{id}/ws` realtime endpoint alike).
 - `/api/mcp/mcp` forwards to the MCP server's Streamable HTTP endpoint `/mcp`
   (a trailing slash, `/api/mcp/mcp/`, is 308-redirected to the no-slash form);
   `/api/mcp/health` forwards to `/health`. Callers send
