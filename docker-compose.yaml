@@ -53,7 +53,10 @@ services:
         mc alias set local http://minio:9000 minioadmin minioadmin;
         mc mb --ignore-existing local/pdf-documents;
         mc anonymous set none local/pdf-documents;
-        echo 'MinIO bucket ready';
+        mc mb --ignore-existing local/learning-documents;
+        mc anonymous set none local/learning-documents;
+        mc ilm rule add --expire-days 7 local/learning-documents || true;
+        echo 'MinIO buckets ready';
       "
     restart: "no"
 
